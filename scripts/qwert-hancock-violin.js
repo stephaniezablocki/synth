@@ -280,7 +280,6 @@
         if (element.tagName.toLowerCase() == 'li') {
             mouse_is_down = true;
             lightenUp(element);
-            console.log(element.title);
             callback(element.title, getFrequencyOfNote(element.title));
         }
     };
