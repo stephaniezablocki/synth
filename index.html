@@ -8,6 +8,11 @@
     <title>Add sound to your web app</title>
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/recorder.css">
+
+    <script type="text/javascript" src="./scripts/synth.js"></script>
+    <script type="text/javascript" src="./scripts/violin.js"></script>
+    <script type="text/javascript" src="./scripts/qwerty-hancock.js"></script>
+    <script type="text/javascript" src="./scripts/qwerty-hancock-violin.js"></script>
 </head>
 
 <body>
@@ -16,8 +21,13 @@
     </div>
 
     <div id="keyboard" align="center">
-        <script src="./scripts/qwerty-hancock.js"></script>
-        <script src="./scripts/violin.js"></script>
+    </div>
+
+    <div id="instruments" align="center">
+        <button type="button" class="instrument-button" id="synth-btn"
+            onclick="violinActivated = false; loadSynth()">Synth</button>
+        <button type="button" class="instrument-button" id="violin-btn"
+            onclick="violinActivated = true; loadViolin()">Violin</button>
     </div>
 
     <div class="wrapper">
@@ -37,6 +47,11 @@
     </div>
 
     <script src="./scripts/recorder.js"></script>
+    <script src="./scripts/synthKeyboard.js"></script>
+    <script>
+        violinActivated = false;
+        loadSynthOriginal();
+    </script>
 </body>
 
 </html>

@@ -441,21 +441,23 @@
      * @return {boolean} true if it was a key (combo) used by qwerty-hancock
      */
     var keyboardDown = function (key, callback) {
-        var key_pressed;
+        if (violinActivated == false) {
+            var key_pressed;
 
-        if (key.keyCode in keysDown) {
-            return false;
-        }
+            if (key.keyCode in keysDown) {
+                return false;
+            }
 
-        keysDown[key.keyCode] = true;
+            keysDown[key.keyCode] = true;
 
-        if (typeof key_map[key.keyCode] !== 'undefined') {
-            key_pressed = getKeyPressed(key.keyCode);
+            if (typeof key_map[key.keyCode] !== 'undefined') {
+                key_pressed = getKeyPressed(key.keyCode);
 
-            // Call user's noteDown function.
-            callback(key_pressed, getFrequencyOfNote(key_pressed));
-            lightenUp(document.getElementById(key_pressed));
-            return true;
+                // Call user's noteDown function.
+                callback(key_pressed, getFrequencyOfNote(key_pressed));
+                lightenUp(document.getElementById(key_pressed));
+                return true;
+            }
         }
         return false;
     };

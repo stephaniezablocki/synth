@@ -6,3 +6,13 @@ body {
     margin: auto;
     width: 800px;
 }
+
+#instruments {
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+
+.instrument-button {
+    background-color: black;
+    width: 20%;
+}

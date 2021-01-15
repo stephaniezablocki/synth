@@ -20,28 +20,18 @@
         mouse_is_down = false,
         keysDown = {},
         key_map = {
-            65: 'Cl',
-            87: 'C#l',
-            83: 'Dl',
-            69: 'D#l',
-            68: 'El',
-            70: 'Fl',
-            84: 'F#l',
-            71: 'Gl',
-            89: 'G#l',
-            90: 'G#l',
-            72: 'Al',
-            85: 'A#l',
-            74: 'Bl',
-            75: 'Cu',
-            79: 'C#u',
-            76: 'Du',
-            80: 'D#u',
-            59: 'Eu',
-            186: 'Eu',
-            222: 'Fu',
-            221: 'F#u',
-            220: 'Gu'
+            65: 'A3',
+            83: 'B3',
+            68: 'Cl',
+            70: 'Dl',
+            71: 'El',
+            72: 'Fl',
+            74: 'Gl',
+            75: 'Al',
+            76: 'Bl',
+            186: 'Cu',
+            222: 'Du',
+            219: 'Eu',
         },
         keyDownCallback,
         keyUpCallback;
@@ -71,7 +61,7 @@
             margin: user_settings.margin || 0,
             startNote: user_settings.startNote || 'A3',
             whiteKeyColour: user_settings.whiteKeyColour || '#fff',
-            blackKeyColour: user_settings.blackKeyColour || '#000',
+            blackKeyColour: user_settings.blackKeyColour || '#bbb',
             activeColour: user_settings.activeColour || 'yellow',
             borderColour: user_settings.borderColour || '#000',
             keyboardLayout: user_settings.keyboardLayout || 'en',
@@ -280,6 +270,7 @@
         if (element.tagName.toLowerCase() == 'li') {
             mouse_is_down = true;
             lightenUp(element);
+            console.log(element.title);
             callback(element.title, getFrequencyOfNote(element.title));
         }
     };
@@ -440,21 +431,23 @@
      * @return {boolean} true if it was a key (combo) used by qwerty-hancock
      */
     var keyboardDown = function (key, callback) {
-        var key_pressed;
+        if (violinActivated == true) {
+            var key_pressed;
 
-        if (key.keyCode in keysDown) {
-            return false;
-        }
+            if (key.keyCode in keysDown) {
+                return false;
+            }
 
-        keysDown[key.keyCode] = true;
+            keysDown[key.keyCode] = true;
 
-        if (typeof key_map[key.keyCode] !== 'undefined') {
-            key_pressed = getKeyPressed(key.keyCode);
+            if (typeof key_map[key.keyCode] !== 'undefined') {
+                key_pressed = getKeyPressed(key.keyCode);
 
-            // Call user's noteDown function.
-            callback(key_pressed, getFrequencyOfNote(key_pressed));
-            lightenUp(document.getElementById(key_pressed));
-            return true;
+                // Call user's noteDown function.
+                callback(key_pressed, getFrequencyOfNote(key_pressed));
+                lightenUp(document.getElementById(key_pressed));
+                return true;
+            }
         }
         return false;
     };
@@ -561,7 +554,7 @@
      * Qwerty Hancock constructor.
      * @param {object} settings Optional user settings.
      */
-    var QwertyHancock = function (settings) {
+    var QwertyHancockViolin = function (settings) {
         this.version = version;
 
         this.keyDown = function () {
@@ -588,10 +581,10 @@
 
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = QwertyHancock;
+            exports = module.exports = QwertyHancockViolin;
         }
-        exports.QwertyHancock = QwertyHancock;
+        exports.QwertyHancockViolin = QwertyHancockViolin;
     } else {
-        root.QwertyHancock = QwertyHancock;
+        root.QwertyHancockViolin = QwertyHancockViolin;
     }
 })(this);
